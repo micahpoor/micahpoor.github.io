@@ -165,6 +165,8 @@
             </p>
             <div class="contact-content">
                 <form class="contact-form scroll-reveal" action="https://formspree.io/f/xdaanyqz" method="POST">
+                    <!-- Honeypot field - hidden from humans, bots will fill it -->
+                    <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" id="name" name="name" required placeholder="Your name">
