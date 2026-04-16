@@ -56,8 +56,12 @@ body {
 }
 
 a {
-    color: inherit;
+    color: var(--accent);
     text-decoration: none;
+}
+
+a:hover {
+    color: var(--accent-bright);
 }
 
 img {
