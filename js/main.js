@@ -191,6 +191,41 @@ function closeModal() {
     document.body.style.overflow = '';
 }
 
+function openProject(projectId) {
+    const project = projectData[projectId];
+    if (!project) return;
+    modalContent.innerHTML = `
+        <img src="${project.heroImage}" alt="${project.title}" class="modal-hero">
+        <h2 class="modal-title">${project.title}</h2>
+        <p class="modal-subtitle">${project.subtitle}</p>
+        <p class="modal-description">${project.description}</p>
+        <div class="modal-section">
+            <h4>Role</h4>
+            <p>${project.role}</p>
+        </div>
+        <div class="modal-section">
+            <h4>Challenge</h4>
+            <p>${project.challenge}</p>
+        </div>
+        <div class="modal-section">
+            <h4>Solution</h4>
+            <p>${project.solution}</p>
+        </div>
+        <div class="modal-section">
+            <h4>Outcome</h4>
+            <p>${project.outcome}</p>
+        </div>
+        <div class="modal-section">
+            <h4>Tools Used</h4>
+            <div class="modal-tools">
+                ${project.tools.map(tool => `<span class="modal-tool">${tool}</span>`).join('')}
+            </div>
+        </div>
+    `;
+    modalOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
 modalClose.addEventListener('click', closeModal);
 modalOverlay.addEventListener('click', (e) => {
     if (e.target === modalOverlay) closeModal();
