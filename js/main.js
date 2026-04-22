@@ -165,10 +165,13 @@ function buildModalHTML(project) {
         <img src="${project.heroImage}" alt="${project.title}" class="modal-hero">
         <h2 class="modal-title">${project.title}</h2>
         <p class="modal-subtitle">${project.subtitle}</p>
+        <p class="modal-byline">${project.role}</p>
         ${statsBar}
-        <p class="modal-description">${project.description}</p>
-        <div class="modal-section"><h4>Role</h4><p>${project.role}</p></div>
-        <div class="modal-section"><h4>Challenge</h4><p>${project.challenge}</p></div>
+        <p class="modal-lede">${project.description}</p>
+        <div class="modal-callout">
+            <h4>Challenge</h4>
+            <p>${project.challenge}</p>
+        </div>
         <div class="modal-section"><h4>Solution</h4><p>${project.solution}</p></div>
         <div class="modal-section"><h4>Outcome</h4><p>${project.outcome}</p></div>
         <div class="modal-section">
