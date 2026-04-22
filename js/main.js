@@ -191,6 +191,26 @@ function buildModalHTML(project) {
                 <p>${project.solution}</p>
             </div>
         </div>
+        ${(project.examples || []).map((ex, i) => {
+            const num = String(i + 1).padStart(2, '0');
+            const zoneClass = i % 2 === 0 ? 'modal-zone-b' : 'modal-zone-c';
+            const imgHTML = ex.image ? `<img src="${ex.image}" alt="${ex.imageAlt || ''}" class="example-img">` : '';
+            const statHTML = ex.stat ? `<p class="example-stat">${ex.stat}</p>` : '';
+            const linkHTML = ex.link ? `<a href="${ex.link}" target="_blank" rel="noopener" class="example-link">↗ View post</a>` : '';
+            return `
+        <div class="modal-zone ${zoneClass}">
+            <div class="zone-left">
+                <span class="zone-label">${num}</span>
+            </div>
+            <div class="zone-right">
+                <p class="example-title">${ex.label}</p>
+                ${statHTML}
+                <p class="example-body">${ex.body}</p>
+                ${imgHTML}
+                ${linkHTML}
+            </div>
+        </div>`;
+        }).join('')}
         <div class="modal-zone modal-zone-b">
             <div class="zone-left">
                 <span class="zone-label">Outcome</span>
