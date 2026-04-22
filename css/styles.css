@@ -755,17 +755,18 @@ section {
     color: var(--bg-primary);
 }
 
-.modal-content {
-    padding: var(--space-lg);
+.modal-content,
+#modal-content {
+    padding: 0;
 }
 
 .modal-hero {
     width: 100%;
     aspect-ratio: 16/9;
     object-fit: cover;
-    border-radius: var(--radius-md);
-    margin-bottom: var(--space-md);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
     background: var(--bg-primary);
+    display: block;
 }
 
 .modal-title {
@@ -777,105 +778,9 @@ section {
 
 .modal-subtitle {
     font-family: var(--font-mono);
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: var(--accent);
-    margin-bottom: var(--space-md);
-}
-
-.modal-byline {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: var(--space-md);
-    padding-bottom: var(--space-md);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.modal-lede {
-    font-size: 1.05rem;
-    color: var(--text-primary);
-    line-height: 1.75;
-    margin-bottom: var(--space-md);
-}
-
-.modal-callout {
-    border-left: 3px solid var(--accent);
-    padding: var(--space-sm) var(--space-md);
-    background: rgba(192, 132, 252, 0.04);
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
-    margin-bottom: var(--space-md);
-}
-
-.modal-callout h4 {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    margin-bottom: var(--space-sm);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.modal-callout h4::before {
-    content: '';
-    display: inline-block;
-    width: 16px;
-    height: 2px;
-    background: var(--accent);
-    flex-shrink: 0;
-}
-
-.modal-callout p {
-    color: var(--text-secondary);
-    line-height: 1.7;
-}
-
-.modal-description {
-    color: var(--text-secondary);
-    margin-bottom: var(--space-md);
-    line-height: 1.8;
-}
-
-/* ===== MODAL STATS BAR ===== */
-.modal-stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    margin-bottom: var(--space-md);
-}
-
-.modal-stat {
-    padding: var(--space-sm) var(--space-md);
-    text-align: center;
-    border-right: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.modal-stat:last-child {
-    border-right: none;
-}
-
-.modal-stat-value {
-    display: block;
-    font-family: var(--font-display);
-    font-size: 1.75rem;
-    font-weight: 700;
-    color: var(--accent);
-    line-height: 1;
-    margin-bottom: 6px;
-}
-
-.modal-stat-label {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
+    margin-bottom: 1.5rem;
 }
 
 /* ===== CARD STAT LINE ===== */
@@ -891,15 +796,121 @@ section {
     color: var(--accent);
 }
 
-.modal-section {
-    margin-bottom: var(--space-md);
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
-    padding-top: var(--space-md);
+/* ===== MODAL ZONE: HEADER (full-width) ===== */
+.modal-zone-header {
+    background: var(--bg-secondary);
+    padding: 2.5rem 2.5rem 2rem;
 }
 
-.modal-section h4 {
+.header-meta {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+    flex-wrap: wrap;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.meta-role {
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    line-height: 1.6;
+    flex: 1;
+    min-width: 160px;
+}
+
+.meta-stats {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.stat-value {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 3px;
+}
+
+.stat-label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+/* ===== MODAL ZONES: TWO-COLUMN ===== */
+.modal-zone {
+    display: grid;
+    grid-template-columns: 148px 1fr;
+}
+
+.modal-zone-a { background: #111111; }
+.modal-zone-b { background: #0d0d0d; }
+.modal-zone-c { background: #131313; }
+
+.zone-left {
+    padding: 2rem 1.5rem 2rem 2.5rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    align-items: flex-start;
+}
+
+.zone-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-top: 2px;
+}
+
+.zone-label::before {
+    content: '';
+    display: inline-block;
+    width: 12px;
+    height: 2px;
+    background: var(--accent);
+    flex-shrink: 0;
+}
+
+.zone-right {
+    padding: 2rem 2.5rem 2rem 2rem;
+}
+
+.zone-right p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+.zone-right--lede p {
+    font-size: 1.05rem;
+    color: var(--text-primary);
+    line-height: 1.8;
+}
+
+/* ===== MODAL ZONE: CHALLENGE (full-width callout break) ===== */
+.modal-zone-challenge {
+    padding: 2rem 2.5rem;
+    background: rgba(192, 132, 252, 0.04);
+    border-left: 3px solid var(--accent);
+}
+
+.modal-zone-challenge h4 {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
     color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 0.12em;
@@ -909,7 +920,7 @@ section {
     gap: 10px;
 }
 
-.modal-section h4::before {
+.modal-zone-challenge h4::before {
     content: '';
     display: inline-block;
     width: 16px;
@@ -918,8 +929,43 @@ section {
     flex-shrink: 0;
 }
 
-.modal-section p {
+.modal-zone-challenge p {
+    font-size: 0.9rem;
     color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+/* ===== MODAL MOBILE ===== */
+@media (max-width: 640px) {
+    .modal-zone {
+        grid-template-columns: 1fr;
+    }
+
+    .zone-left {
+        padding: 1.25rem 1.5rem 0.25rem;
+        border-right: none;
+    }
+
+    .zone-right {
+        padding: 0.75rem 1.5rem 1.25rem;
+    }
+
+    .modal-zone-header {
+        padding: 1.5rem 1.5rem 1.25rem;
+    }
+
+    .modal-zone-challenge {
+        padding: 1.25rem 1.5rem;
+    }
+
+    .header-meta {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .meta-stats {
+        gap: 1.25rem;
+    }
 }
 
 .modal-tools {

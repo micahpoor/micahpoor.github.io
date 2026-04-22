@@ -153,31 +153,60 @@ const FOCUSABLE = 'a[href], button:not([disabled]), input, textarea, select, [ta
 let modalTrigger = null;
 
 function buildModalHTML(project) {
-    const statsBar = project.stats ? `
-        <div class="modal-stats">
+    const statsHTML = project.stats ? `
+        <div class="meta-stats">
             ${project.stats.map(s => `
-            <div class="modal-stat">
-                <span class="modal-stat-value">${s.value}</span>
-                <span class="modal-stat-label">${s.label}</span>
+            <div>
+                <span class="stat-value">${s.value}</span>
+                <span class="stat-label">${s.label}</span>
             </div>`).join('')}
         </div>` : '';
     return `
         <img src="${project.heroImage}" alt="${project.title}" class="modal-hero">
-        <h2 class="modal-title">${project.title}</h2>
-        <p class="modal-subtitle">${project.subtitle}</p>
-        <p class="modal-byline">${project.role}</p>
-        ${statsBar}
-        <p class="modal-lede">${project.description}</p>
-        <div class="modal-callout">
+        <div class="modal-zone-header">
+            <h2 class="modal-title">${project.title}</h2>
+            <p class="modal-subtitle">${project.subtitle}</p>
+            <div class="header-meta">
+                <span class="meta-role">${project.role}</span>
+                ${statsHTML}
+            </div>
+        </div>
+        <div class="modal-zone modal-zone-b">
+            <div class="zone-left">
+                <span class="zone-label">Overview</span>
+            </div>
+            <div class="zone-right zone-right--lede">
+                <p>${project.description}</p>
+            </div>
+        </div>
+        <div class="modal-zone-challenge">
             <h4>Challenge</h4>
             <p>${project.challenge}</p>
         </div>
-        <div class="modal-section"><h4>Solution</h4><p>${project.solution}</p></div>
-        <div class="modal-section"><h4>Outcome</h4><p>${project.outcome}</p></div>
-        <div class="modal-section">
-            <h4>Tools Used</h4>
-            <div class="modal-tools">
-                ${project.tools.map(tool => `<span class="modal-tool">${tool}</span>`).join('')}
+        <div class="modal-zone modal-zone-c">
+            <div class="zone-left">
+                <span class="zone-label">Solution</span>
+            </div>
+            <div class="zone-right">
+                <p>${project.solution}</p>
+            </div>
+        </div>
+        <div class="modal-zone modal-zone-b">
+            <div class="zone-left">
+                <span class="zone-label">Outcome</span>
+            </div>
+            <div class="zone-right">
+                <p>${project.outcome}</p>
+            </div>
+        </div>
+        <div class="modal-zone modal-zone-c">
+            <div class="zone-left">
+                <span class="zone-label">Tools Used</span>
+            </div>
+            <div class="zone-right">
+                <div class="modal-tools">
+                    ${project.tools.map(tool => `<span class="modal-tool">${tool}</span>`).join('')}
+                </div>
             </div>
         </div>
     `;
