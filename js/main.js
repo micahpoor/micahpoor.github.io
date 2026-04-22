@@ -55,17 +55,22 @@ magneticElements.forEach(el => {
 
 // ===== TYPEWRITER EFFECT =====
 const phrases = [
-    "Transforming ideas into stories",
-    "Crafting engaging content",
-    "Making brands memorable",
-    "Telling stories that connect"
+    "Building the infrastructure behind content",
+    "Editorial judgment at scale",
+    "Building communities worth belonging to",
+    "Where the mission is the point",
+    "Copy that earns its place",
+    "Building what needs to exist",
+    "Miko approved.",
+    "Will rewrite this tomorrow..."
 ];
 
 const typewriter = document.querySelector('.typewriter');
 let phraseIndex = 0;
 let charIndex = 0;
 let isDeleting = false;
-let typingSpeed = 100;
+let typingSpeed = 65;
+let pillsRevealed = false;
 
 function type() {
     const currentPhrase = phrases[phraseIndex];
@@ -73,27 +78,30 @@ function type() {
     if (isDeleting) {
         typewriter.textContent = currentPhrase.substring(0, charIndex - 1);
         charIndex--;
-        typingSpeed = 50;
+        typingSpeed = 30;
     } else {
         typewriter.textContent = currentPhrase.substring(0, charIndex + 1);
         charIndex++;
-        typingSpeed = 100;
+        typingSpeed = 65;
     }
 
     if (!isDeleting && charIndex === currentPhrase.length) {
         isDeleting = true;
-        typingSpeed = 2000; // Pause before deleting
+        typingSpeed = 1200;
+        if (!pillsRevealed) {
+            pillsRevealed = true;
+            document.querySelector('.hero-roles').classList.add('revealed');
+        }
     } else if (isDeleting && charIndex === 0) {
         isDeleting = false;
         phraseIndex = (phraseIndex + 1) % phrases.length;
-        typingSpeed = 500; // Pause before typing next
+        typingSpeed = 250;
     }
 
     setTimeout(type, typingSpeed);
 }
 
-// Start typewriter after a delay
-setTimeout(type, 1000);
+setTimeout(type, 0);
 
 // ===== SCROLL REVEAL =====
 const revealElements = document.querySelectorAll('.scroll-reveal');

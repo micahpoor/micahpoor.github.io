@@ -253,6 +253,14 @@ section {
     justify-content: center;
     gap: var(--space-xs);
     margin-bottom: var(--space-lg);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.hero-roles.revealed {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .role-pill {
@@ -829,6 +837,21 @@ section {
 .work-grid .scroll-reveal:nth-child(1) { transition-delay: 0s; }
 .work-grid .scroll-reveal:nth-child(2) { transition-delay: 0.1s; }
 .work-grid .scroll-reveal:nth-child(3) { transition-delay: 0.2s; }
+
+/* ===== REDUCED MOTION ===== */
+@media (prefers-reduced-motion: reduce) {
+    .hero-name-line { animation: none; }
+    .hero-glow { animation: none; }
+    .hero-cta svg { animation: none; }
+    .status-indicator { animation: none; }
+    .typewriter-cursor { animation: none; }
+    .scroll-reveal { transition: none; opacity: 1; transform: none; }
+    .hero-roles { transition: none; }
+    .project-card,
+    .project-image img,
+    .project-card::before,
+    .project-overlay { transition: none; }
+}
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 480px) {
