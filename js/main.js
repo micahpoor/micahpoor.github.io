@@ -3,38 +3,42 @@ const cursor = document.querySelector('.cursor');
 const cursorDot = document.querySelector('.cursor-dot');
 const cursorRing = document.querySelector('.cursor-ring');
 
-let mouseX = 0, mouseY = 0;
-let dotX = 0, dotY = 0;
-let ringX = 0, ringY = 0;
+const isPointerFine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-});
+if (isPointerFine) {
+    let mouseX = 0, mouseY = 0;
+    let dotX = 0, dotY = 0;
+    let ringX = 0, ringY = 0;
 
-function animateCursor() {
-    // Dot follows mouse closely
-    dotX += (mouseX - dotX) * 0.5;
-    dotY += (mouseY - dotY) * 0.5;
-    cursorDot.style.left = dotX + 'px';
-    cursorDot.style.top = dotY + 'px';
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
 
-    // Ring follows with more delay
-    ringX += (mouseX - ringX) * 0.15;
-    ringY += (mouseY - ringY) * 0.15;
-    cursorRing.style.left = ringX + 'px';
-    cursorRing.style.top = ringY + 'px';
+    function animateCursor() {
+        // Dot follows mouse closely
+        dotX += (mouseX - dotX) * 0.5;
+        dotY += (mouseY - dotY) * 0.5;
+        cursorDot.style.left = dotX + 'px';
+        cursorDot.style.top = dotY + 'px';
 
-    requestAnimationFrame(animateCursor);
+        // Ring follows with more delay
+        ringX += (mouseX - ringX) * 0.15;
+        ringY += (mouseY - ringY) * 0.15;
+        cursorRing.style.left = ringX + 'px';
+        cursorRing.style.top = ringY + 'px';
+
+        requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    // Cursor hover effect
+    const hoverElements = document.querySelectorAll('a, button, .project-card, .magnetic');
+    hoverElements.forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+    });
 }
-animateCursor();
-
-// Cursor hover effect
-const hoverElements = document.querySelectorAll('a, button, .project-card, .magnetic');
-hoverElements.forEach(el => {
-    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-});
 
 // ===== MAGNETIC BUTTONS =====
 const magneticElements = document.querySelectorAll('.magnetic');
@@ -195,8 +199,9 @@ function buildModalHTML(project) {
             const num = String(i + 1).padStart(2, '0');
             const zoneClass = i % 2 === 0 ? 'modal-zone-b' : 'modal-zone-c';
             const imgHTML = ex.image ? `<img src="${ex.image}" alt="${ex.imageAlt || ''}" class="example-img">` : '';
+            const videoHTML = ex.video ? `<video controls class="example-video"><source src="${ex.video}" type="video/mp4"></video>` : '';
             const statHTML = ex.stat ? `<p class="example-stat">${ex.stat}</p>` : '';
-            const linkHTML = ex.link ? `<a href="${ex.link}" target="_blank" rel="noopener" class="example-link">↗ View post</a>` : '';
+            const linkHTML = ex.link ? `<a href="${ex.link}" target="_blank" rel="noopener" class="example-link">${ex.linkLabel || '↗ View post'}</a>` : '';
             return `
         <div class="modal-zone ${zoneClass}">
             <div class="zone-left">
@@ -207,6 +212,7 @@ function buildModalHTML(project) {
                 ${statHTML}
                 <p class="example-body">${ex.body}</p>
                 ${imgHTML}
+                ${videoHTML}
                 ${linkHTML}
             </div>
         </div>`;

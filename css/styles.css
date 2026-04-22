@@ -117,8 +117,8 @@ button {
     opacity: 1;
 }
 
-/* Hide cursor on touch devices */
-@media (hover: none) {
+/* Hide cursor on touch/hybrid devices */
+@media (hover: none), (pointer: coarse) {
     .cursor { display: none; }
     body { cursor: auto; }
     button { cursor: pointer; }
@@ -301,14 +301,6 @@ section {
     box-shadow: 0 10px 30px rgba(192, 132, 252, 0.3);
 }
 
-.hero-cta svg {
-    animation: bounce 2s ease infinite;
-}
-
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(5px); }
-}
 
 .hero-glow {
     position: absolute;
@@ -735,10 +727,19 @@ section {
     transform: translateY(0);
 }
 
+.modal-close-wrapper {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    height: 0;
+    overflow: visible;
+    display: flex;
+    justify-content: flex-end;
+}
+
 .modal-close {
-    position: absolute;
-    top: var(--space-sm);
-    right: var(--space-sm);
+    position: relative;
+    margin: var(--space-sm) var(--space-sm) 0 0;
     width: 40px;
     height: 40px;
     display: flex;
@@ -856,8 +857,8 @@ section {
 }
 
 .modal-zone-a { background: #111111; }
-.modal-zone-b { background: #0d0d0d; }
-.modal-zone-c { background: #131313; }
+.modal-zone-b { background: #0a0a0a; }
+.modal-zone-c { background: #181818; }
 
 .zone-left {
     padding: 2rem 1.5rem 2rem 2.5rem;
@@ -983,6 +984,14 @@ section {
     border-color: var(--accent);
 }
 
+.example-video {
+    max-width: 260px;
+    width: 100%;
+    border-radius: 12px;
+    margin-top: 1rem;
+    display: block;
+}
+
 /* ===== MODAL MOBILE ===== */
 @media (max-width: 640px) {
     .modal-zone {
@@ -1053,7 +1062,6 @@ section {
 @media (prefers-reduced-motion: reduce) {
     .hero-name-line { animation: none; }
     .hero-glow { animation: none; }
-    .hero-cta svg { animation: none; }
     .status-indicator { animation: none; }
     .typewriter-cursor { animation: none; }
     .scroll-reveal { transition: none; opacity: 1; transform: none; }
