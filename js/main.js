@@ -146,7 +146,11 @@ const projectCards = document.querySelectorAll('.project-card');
 const modalOverlay = document.getElementById('modal-overlay');
 const modalContent = document.getElementById('modal-content');
 const modalClose = document.querySelector('.modal-close');
+const modalEl = document.querySelector('.modal');
 const projectData = JSON.parse(document.getElementById('project-data').textContent);
+
+const FOCUSABLE = 'a[href], button:not([disabled]), input, textarea, select, [tabindex]:not([tabindex="-1"])';
+let modalTrigger = null;
 
 projectCards.forEach(card => {
     card.addEventListener('click', () => {
@@ -188,8 +192,10 @@ projectCards.forEach(card => {
                 </div>
             `;
 
+            modalTrigger = card;
             modalOverlay.classList.add('active');
             document.body.style.overflow = 'hidden';
+            requestAnimationFrame(() => modalClose.focus());
         }
     });
 });
@@ -197,6 +203,7 @@ projectCards.forEach(card => {
 function closeModal() {
     modalOverlay.classList.remove('active');
     document.body.style.overflow = '';
+    if (modalTrigger) { modalTrigger.focus(); modalTrigger = null; }
 }
 
 function openProject(projectId) {
@@ -232,6 +239,7 @@ function openProject(projectId) {
     `;
     modalOverlay.classList.add('active');
     document.body.style.overflow = 'hidden';
+    requestAnimationFrame(() => modalClose.focus());
 }
 
 modalClose.addEventListener('click', closeModal);
@@ -239,7 +247,17 @@ modalOverlay.addEventListener('click', (e) => {
     if (e.target === modalOverlay) closeModal();
 });
 document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeModal();
+    if (e.key === 'Escape') { closeModal(); return; }
+    if (e.key !== 'Tab' || !modalOverlay.classList.contains('active')) return;
+    const focusable = [...modalEl.querySelectorAll(FOCUSABLE)];
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey) {
+        if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+    } else {
+        if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
 });
 
 // ===== SMOOTH SCROLL =====
