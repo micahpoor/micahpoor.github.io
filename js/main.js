@@ -152,45 +152,41 @@ const projectData = JSON.parse(document.getElementById('project-data').textConte
 const FOCUSABLE = 'a[href], button:not([disabled]), input, textarea, select, [tabindex]:not([tabindex="-1"])';
 let modalTrigger = null;
 
+function buildModalHTML(project) {
+    const statsBar = project.stats ? `
+        <div class="modal-stats">
+            ${project.stats.map(s => `
+            <div class="modal-stat">
+                <span class="modal-stat-value">${s.value}</span>
+                <span class="modal-stat-label">${s.label}</span>
+            </div>`).join('')}
+        </div>` : '';
+    return `
+        <img src="${project.heroImage}" alt="${project.title}" class="modal-hero">
+        <h2 class="modal-title">${project.title}</h2>
+        <p class="modal-subtitle">${project.subtitle}</p>
+        ${statsBar}
+        <p class="modal-description">${project.description}</p>
+        <div class="modal-section"><h4>Role</h4><p>${project.role}</p></div>
+        <div class="modal-section"><h4>Challenge</h4><p>${project.challenge}</p></div>
+        <div class="modal-section"><h4>Solution</h4><p>${project.solution}</p></div>
+        <div class="modal-section"><h4>Outcome</h4><p>${project.outcome}</p></div>
+        <div class="modal-section">
+            <h4>Tools Used</h4>
+            <div class="modal-tools">
+                ${project.tools.map(tool => `<span class="modal-tool">${tool}</span>`).join('')}
+            </div>
+        </div>
+    `;
+}
+
 projectCards.forEach(card => {
     card.addEventListener('click', () => {
         const projectId = card.dataset.project;
         const project = projectData[projectId];
 
         if (project) {
-            modalContent.innerHTML = `
-                <img src="${project.heroImage}" alt="${project.title}" class="modal-hero">
-                <h2 class="modal-title">${project.title}</h2>
-                <p class="modal-subtitle">${project.subtitle}</p>
-                <p class="modal-description">${project.description}</p>
-
-                <div class="modal-section">
-                    <h4>Role</h4>
-                    <p>${project.role}</p>
-                </div>
-
-                <div class="modal-section">
-                    <h4>Challenge</h4>
-                    <p>${project.challenge}</p>
-                </div>
-
-                <div class="modal-section">
-                    <h4>Solution</h4>
-                    <p>${project.solution}</p>
-                </div>
-
-                <div class="modal-section">
-                    <h4>Outcome</h4>
-                    <p>${project.outcome}</p>
-                </div>
-
-                <div class="modal-section">
-                    <h4>Tools Used</h4>
-                    <div class="modal-tools">
-                        ${project.tools.map(tool => `<span class="modal-tool">${tool}</span>`).join('')}
-                    </div>
-                </div>
-            `;
+            modalContent.innerHTML = buildModalHTML(project);
 
             modalTrigger = card;
             modalOverlay.classList.add('active');
@@ -209,34 +205,7 @@ function closeModal() {
 function openProject(projectId) {
     const project = projectData[projectId];
     if (!project) return;
-    modalContent.innerHTML = `
-        <img src="${project.heroImage}" alt="${project.title}" class="modal-hero">
-        <h2 class="modal-title">${project.title}</h2>
-        <p class="modal-subtitle">${project.subtitle}</p>
-        <p class="modal-description">${project.description}</p>
-        <div class="modal-section">
-            <h4>Role</h4>
-            <p>${project.role}</p>
-        </div>
-        <div class="modal-section">
-            <h4>Challenge</h4>
-            <p>${project.challenge}</p>
-        </div>
-        <div class="modal-section">
-            <h4>Solution</h4>
-            <p>${project.solution}</p>
-        </div>
-        <div class="modal-section">
-            <h4>Outcome</h4>
-            <p>${project.outcome}</p>
-        </div>
-        <div class="modal-section">
-            <h4>Tools Used</h4>
-            <div class="modal-tools">
-                ${project.tools.map(tool => `<span class="modal-tool">${tool}</span>`).join('')}
-            </div>
-        </div>
-    `;
+    modalContent.innerHTML = buildModalHTML(project);
     modalOverlay.classList.add('active');
     document.body.style.overflow = 'hidden';
     requestAnimationFrame(() => modalClose.focus());
