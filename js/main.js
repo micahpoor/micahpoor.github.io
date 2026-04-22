@@ -359,19 +359,22 @@ window.addEventListener('scroll', () => {
 
 // ===== NAV ACTIVE STATE =====
 const navLinks = document.querySelectorAll('.nav-link');
+const navSections = document.querySelectorAll('section[id]');
 
-const sectionObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const id = entry.target.getAttribute('id');
-            navLinks.forEach(link => {
-                link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
-            });
+function updateActiveNav() {
+    const trigger = window.scrollY + window.innerHeight * 0.25;
+    let activeId = '';
+
+    navSections.forEach(section => {
+        if (section.offsetTop <= trigger) {
+            activeId = section.getAttribute('id');
         }
     });
-}, {
-    rootMargin: '-40% 0px -50% 0px',
-    threshold: 0
-});
 
-document.querySelectorAll('section[id]').forEach(s => sectionObserver.observe(s));
+    navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === `#${activeId}`);
+    });
+}
+
+window.addEventListener('scroll', updateActiveNav, { passive: true });
+updateActiveNav();

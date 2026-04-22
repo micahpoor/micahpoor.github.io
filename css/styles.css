@@ -234,7 +234,7 @@ section {
 
 .hero-tagline {
     font-family: var(--font-mono);
-    font-size: 1.2rem;
+    font-size: clamp(0.8rem, 3.5vw, 1.2rem);
     color: var(--text-secondary);
     margin-bottom: var(--space-md);
     min-height: 1.5em;
