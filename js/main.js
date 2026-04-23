@@ -379,20 +379,27 @@ function createConfetti() {
 }
 
 function triggerMikoAnnotation() {
-    if (document.getElementById('miko-annotation')) return;
-    const annotation = document.createElement('div');
-    annotation.id = 'miko-annotation';
-    annotation.className = 'miko-annotation';
-    annotation.innerHTML = `
-        <span class="annotation-line1">✓ MIKO APPROVED</span>
-        <span class="annotation-line2">Chief Approval Officer</span>
+    if (document.getElementById('miko-stamp')) return;
+    const stamp = document.createElement('div');
+    stamp.id = 'miko-stamp';
+    stamp.className = 'miko-stamp';
+    stamp.innerHTML = `
+        <div class="stamp-inner">
+            <span class="stamp-check">✓</span>
+            <span class="stamp-main">MIKO APPROVED</span>
+            <div class="stamp-rule"></div>
+            <span class="stamp-sub">Chief Approval Officer</span>
+        </div>
     `;
-    annotation.addEventListener('click', () => annotation.remove());
+    stamp.addEventListener('click', () => {
+        stamp.classList.add('stamp-dismiss');
+        stamp.addEventListener('animationend', () => stamp.remove(), { once: true });
+    });
     if (isPointerFine) {
-        annotation.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-        annotation.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        stamp.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+        stamp.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
     }
-    document.body.appendChild(annotation);
+    document.body.appendChild(stamp);
 }
 
 // Add confetti animation to page
