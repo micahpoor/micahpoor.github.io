@@ -199,7 +199,7 @@ function buildModalHTML(project) {
             const num = String(i + 1).padStart(2, '0');
             const zoneClass = i % 2 === 0 ? 'modal-zone-b' : 'modal-zone-c';
             const imgHTML = ex.image ? `<img src="${ex.image}" alt="${ex.imageAlt || ''}" class="example-img">` : '';
-            const videoHTML = ex.video ? `<video controls class="example-video"><source src="${ex.video}" type="video/mp4"></video>` : '';
+            const videoHTML = ex.video ? `<div class="video-exhibit"><video controls class="example-video"${ex.poster ? ` poster="${ex.poster}"` : ''}><source src="${ex.video}" type="video/mp4"></video></div>` : '';
             const statHTML = ex.stat ? `<p class="example-stat">${ex.stat}</p>` : '';
             const linkHTML = ex.link ? `<a href="${ex.link}" target="_blank" rel="noopener" class="example-link">${ex.linkLabel || '↗ View post'}</a>` : '';
             return `

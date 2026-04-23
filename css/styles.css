@@ -984,11 +984,22 @@ section {
     border-color: var(--accent);
 }
 
-.example-video {
-    max-width: 260px;
-    width: 100%;
+.video-exhibit {
+    margin-top: 1.25rem;
+    margin-bottom: 0.25rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(192, 132, 252, 0.05);
+    border: 1px solid rgba(192, 132, 252, 0.15);
     border-radius: 12px;
-    margin-top: 1rem;
+    padding: 1.25rem;
+}
+
+.example-video {
+    max-width: 220px;
+    width: 100%;
+    border-radius: 8px;
     display: block;
 }
 
