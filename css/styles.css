@@ -1100,8 +1100,8 @@ section {
     pointer-events: none;
     color: #c084fc;
     animation:
-        stamp-drop 0.75s linear forwards,
-        stamp-fade 0.5s ease 3.2s forwards;
+        stamp-drop 0.5s linear forwards,
+        stamp-fade 0.4s ease 3.2s forwards;
 }
 
 .miko-stamp::after {
@@ -1112,10 +1112,10 @@ section {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(192, 132, 252, 0.55) 0%, rgba(192, 132, 252, 0.15) 45%, transparent 70%);
-    transform: translate(-50%, -50%) scale(0);
+    border: 2px solid rgba(192, 132, 252, 0.85);
+    transform: translate(-50%, -50%) scale(1);
     opacity: 0;
-    animation: stamp-pulse 0.65s ease-out 0.51s forwards;
+    animation: stamp-ring-pulse 0.5s ease-out 0.325s forwards;
 }
 
 .stamp-inner {
@@ -1154,25 +1154,14 @@ section {
 
 @keyframes stamp-drop {
     0% {
-        transform: translate(-50%, calc(-50% - 520px)) rotate(-18deg) scale(0.8);
+        transform: translate(-50%, calc(-50% - 420px)) rotate(-8deg);
         opacity: 0;
+        animation-timing-function: cubic-bezier(0.4, 0, 1, 1);
     }
-    15% {
+    65% {
+        transform: translate(-50%, calc(-50% + 8px)) rotate(-8deg) scaleX(1.08) scaleY(0.91);
         opacity: 1;
-        transform: translate(-50%, calc(-50% - 380px)) rotate(-14deg) scale(0.85);
-    }
-    68% {
-        transform: translate(-50%, calc(-50% + 26px)) rotate(-4deg) scaleX(1.16) scaleY(0.78);
-        opacity: 1;
-    }
-    79% {
-        transform: translate(-50%, calc(-50% - 16px)) rotate(-13deg) scaleX(0.91) scaleY(1.12);
-    }
-    88% {
-        transform: translate(-50%, calc(-50% + 7px)) rotate(-6deg) scaleX(1.05) scaleY(0.95);
-    }
-    94% {
-        transform: translate(-50%, calc(-50% - 3px)) rotate(-9deg) scaleX(0.98) scaleY(1.02);
+        animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     100% {
         transform: translate(-50%, -50%) rotate(-8deg) scale(1);
@@ -1180,9 +1169,9 @@ section {
     }
 }
 
-@keyframes stamp-pulse {
-    0%   { transform: translate(-50%, -50%) scale(0.2); opacity: 1; }
-    100% { transform: translate(-50%, -50%) scale(3); opacity: 0; }
+@keyframes stamp-ring-pulse {
+    0%   { transform: translate(-50%, -50%) scale(1);   opacity: 0.85; }
+    100% { transform: translate(-50%, -50%) scale(2.2); opacity: 0; }
 }
 
 @keyframes stamp-fade {
@@ -1191,7 +1180,7 @@ section {
 
 @media (prefers-reduced-motion: reduce) {
     .miko-stamp {
-        animation: stamp-fade 0.5s ease 3.2s forwards;
+        animation: stamp-fade 0.4s ease 3.2s forwards;
         transform: translate(-50%, -50%) rotate(-8deg);
     }
     .miko-stamp::after {
