@@ -404,7 +404,7 @@ function triggerMikoStamp() {
         </div>
     `;
     document.body.appendChild(stamp);
-    setTimeout(() => stamp.remove(), 2600);
+    setTimeout(() => stamp.remove(), 3500);
 }
 
 // Add confetti animation to page
