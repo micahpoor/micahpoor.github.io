@@ -39,10 +39,6 @@ if (isPointerFine) {
         el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
     });
 
-    typewriter.addEventListener('mouseenter', () => {
-        if (typewriter.classList.contains('miko-clickable')) cursor.classList.add('hover');
-    });
-    typewriter.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
 }
 
 // ===== MAGNETIC BUTTONS =====
@@ -116,6 +112,13 @@ setTimeout(type, 0);
 typewriter.addEventListener('click', () => {
     if (typewriter.classList.contains('miko-clickable')) triggerMikoStamp();
 });
+
+if (isPointerFine) {
+    typewriter.addEventListener('mouseenter', () => {
+        if (typewriter.classList.contains('miko-clickable')) cursor.classList.add('hover');
+    });
+    typewriter.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+}
 
 // ===== SCROLL REVEAL =====
 const revealElements = document.querySelectorAll('.scroll-reveal');
