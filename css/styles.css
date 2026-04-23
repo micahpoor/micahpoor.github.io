@@ -1084,6 +1084,89 @@ section {
 }
 
 /* ===== RESPONSIVE ===== */
+/* ===== MIKO STAMP EASTER EGG ===== */
+.miko-clickable {
+    text-decoration: underline dotted rgba(192, 132, 252, 0.4);
+    text-underline-offset: 4px;
+}
+
+.miko-stamp {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 240px;
+    height: 240px;
+    z-index: 9998;
+    pointer-events: none;
+    color: #c084fc;
+    animation:
+        stamp-drop 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+        stamp-fade 0.4s ease 2.1s forwards;
+}
+
+.stamp-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.stamp-ring {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 0 16px rgba(192, 132, 252, 0.5));
+}
+
+.stamp-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    fill: currentColor;
+}
+
+.stamp-photo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 148px;
+    height: 148px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid currentColor;
+}
+
+@keyframes stamp-drop {
+    0% {
+        transform: translate(-50%, calc(-50% - 280px)) rotate(-10deg) scale(1.1);
+        opacity: 0;
+    }
+    65% {
+        transform: translate(-50%, calc(-50% + 12px)) rotate(-7deg) scale(0.94, 1.06);
+        opacity: 1;
+    }
+    80% {
+        transform: translate(-50%, calc(-50% - 4px)) rotate(-9deg) scale(1.03, 0.97);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(-8deg) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes stamp-fade {
+    to { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .miko-stamp {
+        animation: stamp-fade 0.4s ease 2.1s forwards;
+        transform: translate(-50%, -50%) rotate(-8deg);
+    }
+}
+
 @media (max-width: 480px) {
     .nav-links {
         gap: var(--space-sm);

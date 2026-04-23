@@ -38,6 +38,11 @@ if (isPointerFine) {
         el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
         el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
     });
+
+    typewriter.addEventListener('mouseenter', () => {
+        if (typewriter.classList.contains('miko-clickable')) cursor.classList.add('hover');
+    });
+    typewriter.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
 }
 
 // ===== MAGNETIC BUTTONS =====
@@ -79,6 +84,7 @@ function type() {
     const currentPhrase = phrases[phraseIndex];
 
     if (isDeleting) {
+        typewriter.classList.remove('miko-clickable');
         typewriter.textContent = currentPhrase.substring(0, charIndex - 1);
         charIndex--;
         typingSpeed = 30;
@@ -91,6 +97,7 @@ function type() {
     if (!isDeleting && charIndex === currentPhrase.length) {
         isDeleting = true;
         typingSpeed = 1200;
+        if (currentPhrase === 'Miko approved.') typewriter.classList.add('miko-clickable');
         if (!pillsRevealed) {
             pillsRevealed = true;
             document.querySelector('.hero-roles').classList.add('revealed');
@@ -105,6 +112,10 @@ function type() {
 }
 
 setTimeout(type, 0);
+
+typewriter.addEventListener('click', () => {
+    if (typewriter.classList.contains('miko-clickable')) triggerMikoStamp();
+});
 
 // ===== SCROLL REVEAL =====
 const revealElements = document.querySelectorAll('.scroll-reveal');
@@ -362,6 +373,35 @@ function createConfetti() {
 
         setTimeout(() => confetti.remove(), 4000);
     }
+}
+
+function triggerMikoStamp() {
+    if (document.getElementById('miko-stamp')) return;
+    const stamp = document.createElement('div');
+    stamp.id = 'miko-stamp';
+    stamp.className = 'miko-stamp';
+    stamp.innerHTML = `
+        <div class="stamp-inner">
+            <svg class="stamp-ring" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <path id="stamp-arc" d="M 16,100 A 84,84 0 0,0 184,100"/>
+                </defs>
+                <circle cx="100" cy="100" r="96" fill="none" stroke="currentColor" stroke-width="4"/>
+                <circle cx="100" cy="100" r="80" fill="none" stroke="currentColor" stroke-width="2"/>
+                <text class="stamp-text">
+                    <textPath href="#stamp-arc" startOffset="50%" text-anchor="middle">✦ APPROVED ✦</textPath>
+                </text>
+                <g transform="rotate(180, 100, 100)">
+                    <text class="stamp-text">
+                        <textPath href="#stamp-arc" startOffset="50%" text-anchor="middle">CHIEF APPROVAL OFFICER</textPath>
+                    </text>
+                </g>
+            </svg>
+            <img src="assets/projects/miko-1.jpg" class="stamp-photo" alt="Miko">
+        </div>
+    `;
+    document.body.appendChild(stamp);
+    setTimeout(() => stamp.remove(), 2600);
 }
 
 // Add confetti animation to page
