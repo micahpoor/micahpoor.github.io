@@ -1087,13 +1087,13 @@ section {
 /* ===== MIKO ANNOTATION EASTER EGG ===== */
 .miko-annotation {
     position: fixed;
-    top: 20vh;
-    right: 6vw;
+    top: 16vh;
+    right: 7vw;
     z-index: 200;
     display: flex;
     flex-direction: column;
     gap: 5px;
-    color: #8b7a9e;
+    color: #7a6d88;
     opacity: 0;
     transform: rotate(-16deg);
     user-select: none;
@@ -1126,7 +1126,7 @@ section {
     }
     to {
         transform: rotate(-16deg) scale(1);
-        opacity: 0.78;
+        opacity: 0.74;
     }
 }
 
@@ -1137,7 +1137,7 @@ section {
 @media (prefers-reduced-motion: reduce) {
     .miko-annotation {
         animation: none;
-        opacity: 0.78;
+        opacity: 0.74;
         transform: rotate(-16deg);
     }
 }
