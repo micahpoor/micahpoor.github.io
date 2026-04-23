@@ -69,7 +69,7 @@
                 Selected Work
             </h2>
             <div class="work-grid">
-                <article class="project-card scroll-reveal" data-project="store-social">
+                <article class="project-card scroll-reveal" data-project="store-social" tabindex="0" role="button" aria-label="View Store Social at Walmart project">
                     <div class="project-image">
                         <picture>
                             <source srcset="assets/projects/store-social-thumb.webp" type="image/webp">
@@ -91,7 +91,7 @@
                     </div>
                 </article>
 
-                <article class="project-card scroll-reveal" data-project="bee-balm">
+                <article class="project-card scroll-reveal" data-project="bee-balm" tabindex="0" role="button" aria-label="View Bee Balm Arkansas project">
                     <div class="project-image">
                         <picture>
                             <source srcset="assets/projects/bee-balm-thumb.webp" type="image/webp">
@@ -113,7 +113,7 @@
                     </div>
                 </article>
 
-                <article class="project-card scroll-reveal" data-project="writing">
+                <article class="project-card scroll-reveal" data-project="writing" tabindex="0" role="button" aria-label="View Copy &amp; Concepts project">
                     <div class="project-image">
                         <picture>
                             <source srcset="assets/projects/copyConceptsThumb-v3.webp" type="image/webp">
@@ -243,7 +243,7 @@
 
     <!-- Project Modal -->
     <div class="modal-overlay" id="modal-overlay">
-        <div class="modal">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
             <div class="modal-close-wrapper">
                 <button class="modal-close magnetic" aria-label="Close">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -374,6 +374,6 @@
         }
     }
     </script>
-    <script src="js/main.js"></script>
+    <script src="js/main.js" defer></script>
 </body>
 </html>

@@ -66,7 +66,6 @@ const phrases = [
     "Copy that earns its place",
     "Building what needs to exist",
     "Miko approved.",
-    "Will rewrite this tomorrow..."
 ];
 
 const typewriter = document.querySelector('.typewriter');
@@ -169,7 +168,7 @@ function buildModalHTML(project) {
     return `
         <img src="${project.heroImage}" alt="${project.title}" class="modal-hero">
         <div class="modal-zone-header">
-            <h2 class="modal-title">${project.title}</h2>
+            <h2 class="modal-title" id="modal-title">${project.title}</h2>
             <p class="modal-subtitle">${project.subtitle}</p>
             <div class="header-meta">
                 <span class="meta-role">${project.role}</span>
@@ -240,6 +239,13 @@ function buildModalHTML(project) {
 }
 
 projectCards.forEach(card => {
+    card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            card.click();
+        }
+    });
+
     card.addEventListener('click', () => {
         const projectId = card.dataset.project;
         const project = projectData[projectId];
