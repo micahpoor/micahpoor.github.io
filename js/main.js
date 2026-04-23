@@ -110,7 +110,7 @@ function type() {
 setTimeout(type, 0);
 
 typewriter.addEventListener('click', () => {
-    if (typewriter.classList.contains('miko-clickable')) triggerMikoStamp();
+    if (typewriter.classList.contains('miko-clickable')) triggerMikoAnnotation();
 });
 
 if (isPointerFine) {
@@ -378,28 +378,21 @@ function createConfetti() {
     }
 }
 
-function triggerMikoStamp() {
-    if (document.getElementById('miko-stamp')) return;
-    const stamp = document.createElement('div');
-    stamp.id = 'miko-stamp';
-    stamp.className = 'miko-stamp';
-    stamp.innerHTML = `
-        <div class="stamp-inner">
-            <svg class="stamp-ring" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <path id="stamp-arc" d="M 16,100 A 84,84 0 0,0 184,100"/>
-                </defs>
-                <circle cx="100" cy="100" r="96" fill="none" stroke="currentColor" stroke-width="4"/>
-                <circle cx="100" cy="100" r="80" fill="none" stroke="currentColor" stroke-width="2"/>
-                <text class="stamp-text">
-                    <textPath href="#stamp-arc" startOffset="50%" text-anchor="middle">✦ APPROVED ✦</textPath>
-                </text>
-            </svg>
-            <img src="assets/projects/miko-1.jpg" class="stamp-photo" alt="Miko">
-        </div>
+function triggerMikoAnnotation() {
+    if (document.getElementById('miko-annotation')) return;
+    const annotation = document.createElement('div');
+    annotation.id = 'miko-annotation';
+    annotation.className = 'miko-annotation';
+    annotation.innerHTML = `
+        <span class="annotation-line1">✓ MIKO APPROVED</span>
+        <span class="annotation-line2">Chief Approval Officer</span>
     `;
-    document.body.appendChild(stamp);
-    setTimeout(() => stamp.remove(), 3800);
+    annotation.addEventListener('click', () => annotation.remove());
+    if (isPointerFine) {
+        annotation.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+        annotation.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+    }
+    document.body.appendChild(annotation);
 }
 
 // Add confetti animation to page
