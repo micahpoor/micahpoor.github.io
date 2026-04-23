@@ -155,6 +155,7 @@ const projectData = JSON.parse(document.getElementById('project-data').textConte
 
 const FOCUSABLE = 'a[href], button:not([disabled]), input, textarea, select, [tabindex]:not([tabindex="-1"])';
 let modalTrigger = null;
+let modalPushedState = false;
 
 function buildModalHTML(project) {
     const statsHTML = project.stats ? `
@@ -245,10 +246,11 @@ projectCards.forEach(card => {
 
         if (project) {
             modalContent.innerHTML = buildModalHTML(project);
-
             modalTrigger = card;
             modalOverlay.classList.add('active');
             document.body.style.overflow = 'hidden';
+            history.pushState({ modal: true }, '');
+            modalPushedState = true;
             requestAnimationFrame(() => modalClose.focus());
         }
     });
@@ -258,6 +260,7 @@ function closeModal() {
     modalOverlay.classList.remove('active');
     document.body.style.overflow = '';
     if (modalTrigger) { modalTrigger.focus(); modalTrigger = null; }
+    if (modalPushedState) { modalPushedState = false; history.back(); }
 }
 
 function openProject(projectId) {
@@ -266,6 +269,8 @@ function openProject(projectId) {
     modalContent.innerHTML = buildModalHTML(project);
     modalOverlay.classList.add('active');
     document.body.style.overflow = 'hidden';
+    history.pushState({ modal: true }, '');
+    modalPushedState = true;
     requestAnimationFrame(() => modalClose.focus());
 }
 
@@ -286,6 +291,24 @@ document.addEventListener('keydown', (e) => {
         if (document.activeElement === last) { e.preventDefault(); first.focus(); }
     }
 });
+
+// Back gesture closes modal instead of navigating away
+window.addEventListener('popstate', () => {
+    if (modalOverlay.classList.contains('active')) {
+        modalPushedState = false;
+        closeModal();
+    }
+});
+
+// Swipe down from top of modal to close
+let touchStartY = 0;
+modalEl.addEventListener('touchstart', (e) => {
+    touchStartY = e.touches[0].clientY;
+}, { passive: true });
+modalEl.addEventListener('touchend', (e) => {
+    const deltaY = e.changedTouches[0].clientY - touchStartY;
+    if (deltaY > 80 && modalEl.scrollTop === 0) closeModal();
+}, { passive: true });
 
 // ===== SMOOTH SCROLL =====
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
