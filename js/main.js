@@ -394,17 +394,12 @@ function triggerMikoStamp() {
                 <text class="stamp-text">
                     <textPath href="#stamp-arc" startOffset="50%" text-anchor="middle">✦ APPROVED ✦</textPath>
                 </text>
-                <g transform="rotate(180, 100, 100)">
-                    <text class="stamp-text">
-                        <textPath href="#stamp-arc" startOffset="50%" text-anchor="middle">CHIEF APPROVAL OFFICER</textPath>
-                    </text>
-                </g>
             </svg>
             <img src="assets/projects/miko-1.jpg" class="stamp-photo" alt="Miko">
         </div>
     `;
     document.body.appendChild(stamp);
-    setTimeout(() => stamp.remove(), 3500);
+    setTimeout(() => stamp.remove(), 3800);
 }
 
 // Add confetti animation to page
