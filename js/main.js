@@ -177,7 +177,7 @@ function buildModalHTML(project) {
         </div>
         <div class="modal-zone modal-zone-b">
             <div class="zone-left">
-                <span class="zone-label">Overview</span>
+                <span class="zone-label">Lede</span>
             </div>
             <div class="zone-right zone-right--lede">
                 <p>${project.description}</p>
@@ -189,7 +189,7 @@ function buildModalHTML(project) {
         </div>
         <div class="modal-zone modal-zone-c">
             <div class="zone-left">
-                <span class="zone-label">Solution</span>
+                <span class="zone-label">System</span>
             </div>
             <div class="zone-right">
                 <p>${project.solution}</p>
@@ -219,7 +219,7 @@ function buildModalHTML(project) {
         }).join('')}
         <div class="modal-zone modal-zone-b">
             <div class="zone-left">
-                <span class="zone-label">Outcome</span>
+                <span class="zone-label">Results</span>
             </div>
             <div class="zone-right">
                 <p>${project.outcome}</p>
@@ -227,7 +227,7 @@ function buildModalHTML(project) {
         </div>
         <div class="modal-zone modal-zone-c">
             <div class="zone-left">
-                <span class="zone-label">Tools Used</span>
+                <span class="zone-label">Tools</span>
             </div>
             <div class="zone-right">
                 <div class="modal-tools">
