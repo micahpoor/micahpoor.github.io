@@ -60,13 +60,7 @@ magneticElements.forEach(el => {
 
 // ===== TYPEWRITER EFFECT =====
 const phrases = [
-    "Building the infrastructure behind content",
-    "Editorial judgment at scale",
-    "Building communities worth belonging to",
-    "Where the mission is the point",
-    "Copy that earns its place",
-    "Building what needs to exist",
-    "Miko approved.",
+    "Content & Social Media Strategist | Creative Producer | Editorial Systems & Community Growth",
 ];
 
 const typewriter = document.querySelector('.typewriter');
