@@ -1,0 +1,4 @@
+Contact: mailto:hello@micahpoor.com
+Expires: 2027-07-23T23:59:59Z
+Canonical: https://www.micahpoor.com/.well-known/security.txt
+Preferred-Languages: en
