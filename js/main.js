@@ -1,3 +1,7 @@
+// Progressive enhancement: content is visible and the native cursor is shown by
+// default; these classes opt into JS-driven presentation only once the script runs.
+document.documentElement.classList.add('js');
+
 // ===== CUSTOM CURSOR =====
 const cursor = document.querySelector('.cursor');
 const cursorDot = document.querySelector('.cursor-dot');
@@ -6,6 +10,7 @@ const cursorRing = document.querySelector('.cursor-ring');
 const isPointerFine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
 if (isPointerFine) {
+    document.documentElement.classList.add('custom-cursor');
     let mouseX = 0, mouseY = 0;
     let dotX = 0, dotY = 0;
     let ringX = 0, ringY = 0;
@@ -119,20 +124,26 @@ if (isPointerFine) {
 }
 
 // ===== SCROLL REVEAL =====
+// Elements are hidden for the reveal animation only when the observer is
+// actually running (html.js-reveal); otherwise CSS leaves them visible.
 const revealElements = document.querySelectorAll('.scroll-reveal');
 
-const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('revealed');
-        }
-    });
-}, {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-});
+if ('IntersectionObserver' in window) {
+    document.documentElement.classList.add('js-reveal');
 
-revealElements.forEach(el => revealObserver.observe(el));
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+}
 
 // ===== TILT EFFECT =====
 const tiltElements = document.querySelectorAll('.tilt-effect');
@@ -165,8 +176,23 @@ const modalEl = document.querySelector('.modal');
 const projectData = JSON.parse(document.getElementById('project-data').textContent);
 
 const FOCUSABLE = 'a[href], button:not([disabled]), input, textarea, select, [tabindex]:not([tabindex="-1"])';
+// Everything behind the modal overlay; made inert while the dialog is open.
+const modalBackgroundEls = document.querySelectorAll('body > nav, body > section, body > footer');
 let modalTrigger = null;
 let modalPushedState = false;
+
+function setBackgroundInert(isInert) {
+    modalBackgroundEls.forEach(el => { el.inert = isInert; });
+}
+
+// The overlay animates from visibility:hidden, and a hidden element silently
+// refuses focus — retry until the dialog is actually focusable.
+function focusModalWhenVisible(attempt = 0) {
+    modalEl.focus({ preventScroll: true });
+    if (document.activeElement !== modalEl && attempt < 10) {
+        setTimeout(() => focusModalWhenVisible(attempt + 1), 50);
+    }
+}
 
 function buildModalHTML(project) {
     const statsHTML = project.stats ? `
@@ -210,7 +236,7 @@ function buildModalHTML(project) {
         ${(project.examples || []).map((ex, i) => {
             const num = String(i + 1).padStart(2, '0');
             const zoneClass = i % 2 === 0 ? 'modal-zone-b' : 'modal-zone-c';
-            const imgHTML = ex.image ? `<img src="${ex.image}" alt="${ex.imageAlt || ''}" class="example-img">` : '';
+            const imgHTML = ex.image ? `<img src="${ex.image}" alt="${ex.imageAlt || ''}" class="example-img" loading="lazy" decoding="async">` : '';
             const videoHTML = ex.video ? `<div class="video-exhibit"><video controls class="example-video"${ex.poster ? ` poster="${ex.poster}"` : ''}><source src="${ex.video}" type="video/mp4"></video></div>` : '';
             const statHTML = ex.stat ? `<p class="example-stat">${ex.stat}</p>` : '';
             const linkHTML = ex.link ? `<a href="${ex.link}" target="_blank" rel="noopener" class="example-link">${ex.linkLabel || '↗ View post'}</a>` : '';
@@ -258,38 +284,31 @@ projectCards.forEach(card => {
         }
     });
 
-    card.addEventListener('click', () => {
-        const projectId = card.dataset.project;
-        const project = projectData[projectId];
-
-        if (project) {
-            modalContent.innerHTML = buildModalHTML(project);
-            modalTrigger = card;
-            modalOverlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
-            history.pushState({ modal: true }, '');
-            modalPushedState = true;
-            requestAnimationFrame(() => modalClose.focus());
-        }
-    });
+    card.addEventListener('click', () => openProject(card.dataset.project, card));
 });
 
 function closeModal() {
     modalOverlay.classList.remove('active');
+    setBackgroundInert(false);
     document.body.style.overflow = '';
     if (modalTrigger) { modalTrigger.focus(); modalTrigger = null; }
     if (modalPushedState) { modalPushedState = false; history.back(); }
 }
 
-function openProject(projectId) {
+function openProject(projectId, trigger = null) {
     const project = projectData[projectId];
     if (!project) return;
     modalContent.innerHTML = buildModalHTML(project);
+    modalEl.scrollTop = 0;
+    if (trigger) modalTrigger = trigger;
     modalOverlay.classList.add('active');
+    setBackgroundInert(true);
     document.body.style.overflow = 'hidden';
-    history.pushState({ modal: true }, '');
-    modalPushedState = true;
-    requestAnimationFrame(() => modalClose.focus());
+    if (!modalPushedState) {
+        history.pushState({ modal: true }, '');
+        modalPushedState = true;
+    }
+    focusModalWhenVisible();
 }
 
 modalClose.addEventListener('click', closeModal);
@@ -303,10 +322,12 @@ document.addEventListener('keydown', (e) => {
     if (!focusable.length) return;
     const first = focusable[0];
     const last = focusable[focusable.length - 1];
+    // If focus ever ends up outside the dialog, pull it back in.
+    const outside = !modalEl.contains(document.activeElement);
     if (e.shiftKey) {
-        if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+        if (outside || document.activeElement === first || document.activeElement === modalEl) { e.preventDefault(); last.focus(); }
     } else {
-        if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+        if (outside || document.activeElement === last) { e.preventDefault(); first.focus(); }
     }
 });
 
@@ -399,7 +420,7 @@ function triggerMikoAnnotation() {
             <textPath href="#miko-bot-arc" startOffset="50%" text-anchor="middle">&#x2605;  INSPECTED FOR TASTE AND VIBES  &#x2605;</textPath>
         </text>
         <circle cx="150" cy="125" r="75" fill="#0a0a0a" stroke="rgba(212,175,55,0.88)" stroke-width="2"/>
-        <image href="assets/projects/miko-1.jpg" x="78" y="53" width="144" height="144" clip-path="url(#miko-portrait-clip)" preserveAspectRatio="xMidYMin slice"/>
+        <image href="assets/projects/miko-stamp.jpg" x="78" y="53" width="144" height="144" clip-path="url(#miko-portrait-clip)" preserveAspectRatio="xMidYMin slice"/>
         <text x="150" y="220" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="700" letter-spacing="4" fill="rgba(212,175,55,0.95)" text-anchor="middle">MIKO APPROVED</text>
         <line x1="82" y1="233" x2="218" y2="233" stroke="rgba(212,175,55,0.3)" stroke-width="1"/>
         <text x="150" y="248" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="400" letter-spacing="2" fill="rgba(212,175,55,0.6)" text-anchor="middle">CHIEF APPROVAL OFFICER</text>
