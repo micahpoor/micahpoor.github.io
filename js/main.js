@@ -65,9 +65,9 @@ magneticElements.forEach(el => {
 
 // ===== TYPEWRITER EFFECT =====
 const phrases = [
-    "Building communities worth belonging to",
+    "Building communities worth showing up for",
     "Writing brand copy that doesn't sound like it",
-    "Making editorial calls at scale",
+    "Picking the one post out of thousands",
     "Producing things that run without me",
     "Miko approved.",
 ];
