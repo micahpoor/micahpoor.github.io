@@ -1080,6 +1080,16 @@ html.js-reveal .scroll-reveal:not(.revealed) {
 .work-grid .scroll-reveal:nth-child(2) { transition-delay: 0.1s; }
 .work-grid .scroll-reveal:nth-child(3) { transition-delay: 0.2s; }
 
+/* Project cards are both .project-card and .scroll-reveal, so the reveal
+   transition above overrides the card's own. Once a card has finished
+   revealing, hand the transition back to the hover: the reveal timing and
+   stagger delay are wrong for it (600ms, and up to 200ms of lag before the
+   lift starts), and box-shadow isn't in the reveal's property list at all. */
+.work-grid .project-card.revealed {
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+    transition-delay: 0s;
+}
+
 /* ===== REDUCED MOTION ===== */
 @media (prefers-reduced-motion: reduce) {
     .hero-name-line { animation: none; }
@@ -1091,6 +1101,7 @@ html.js-reveal .scroll-reveal:not(.revealed) {
     .hero-roles,
     html.js .hero-roles:not(.revealed) { transition: none; opacity: 1; transform: none; }
     .project-card,
+    .work-grid .project-card.revealed,
     .project-image img,
     .project-card::before,
     .project-overlay { transition: none; }
