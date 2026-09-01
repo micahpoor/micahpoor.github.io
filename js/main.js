@@ -123,6 +123,10 @@ if (isPointerFine) {
     typewriter.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
 }
 
+document.addEventListener('click', (e) => {
+    if (e.target.closest('.miko-trigger')) triggerMikoAnnotation();
+});
+
 // ===== SCROLL REVEAL =====
 // Elements are hidden for the reveal animation only when the observer is
 // actually running (html.js-reveal); otherwise CSS leaves them visible.
@@ -402,31 +406,12 @@ function triggerMikoAnnotation() {
     const stamp = document.createElement('div');
     stamp.id = 'miko-stamp';
     stamp.className = 'miko-stamp';
-    stamp.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 310" width="300" height="310">
-        <defs>
-            <clipPath id="miko-portrait-clip">
-                <circle cx="150" cy="125" r="72"/>
-            </clipPath>
-            <path id="miko-top-arc" d="M 20,148 A 130,130 0 1,1 20.001,148" fill="none"/>
-            <path id="miko-bot-arc" d="M 20,148 A 130,130 0 0,0 280,148" fill="none"/>
-        </defs>
-        <circle cx="150" cy="148" r="142" fill="#0a0a0a"/>
-        <circle cx="150" cy="148" r="142" fill="none" stroke="rgba(212,175,55,0.82)" stroke-width="1.5"/>
-        <circle cx="150" cy="148" r="118" fill="none" stroke="rgba(212,175,55,0.82)" stroke-width="1.5"/>
-        <text font-family="'JetBrains Mono', monospace" font-size="9" font-weight="600" letter-spacing="2" fill="rgba(212,175,55,0.72)">
-            <textPath href="#miko-top-arc" startOffset="25%" text-anchor="middle">OFFICIAL PORTFOLIO CERTIFICATION MARK</textPath>
-        </text>
-        <text font-family="'JetBrains Mono', monospace" font-size="9" font-weight="400" letter-spacing="2" fill="rgba(212,175,55,0.6)">
-            <textPath href="#miko-bot-arc" startOffset="50%" text-anchor="middle">&#x2605;  INSPECTED FOR TASTE AND VIBES  &#x2605;</textPath>
-        </text>
-        <circle cx="150" cy="125" r="75" fill="#0a0a0a" stroke="rgba(212,175,55,0.88)" stroke-width="2"/>
-        <image href="assets/projects/miko-stamp.jpg" x="78" y="53" width="144" height="144" clip-path="url(#miko-portrait-clip)" preserveAspectRatio="xMidYMin slice"/>
-        <text x="150" y="220" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="700" letter-spacing="4" fill="rgba(212,175,55,0.95)" text-anchor="middle">MIKO APPROVED</text>
-        <line x1="82" y1="233" x2="218" y2="233" stroke="rgba(212,175,55,0.3)" stroke-width="1"/>
-        <text x="150" y="248" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="400" letter-spacing="2" fill="rgba(212,175,55,0.6)" text-anchor="middle">CHIEF APPROVAL OFFICER</text>
-        <text x="150" y="263" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="400" letter-spacing="1.5" fill="rgba(212,175,55,0.4)" text-anchor="middle">CERT. NO. MK-001</text>
-    </svg>`;
+    stamp.innerHTML = `<img src="assets/images/mikoSeal_v1.webp" alt="Miko Approved — official portfolio certification mark" draggable="false">`;
     stamp.addEventListener('click', () => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            stamp.remove();
+            return;
+        }
         stamp.classList.add('stamp-dismiss');
         stamp.addEventListener('animationend', () => stamp.remove(), { once: true });
     });
