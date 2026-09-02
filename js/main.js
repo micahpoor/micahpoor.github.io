@@ -73,11 +73,15 @@ const phrases = [
 ];
 
 const typewriter = document.querySelector('.typewriter');
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 let phraseIndex = 0;
 let charIndex = 0;
 let isDeleting = false;
 let typingSpeed = 65;
-let pillsRevealed = false;
+
+// The role pills say what Micah does, so they are never gated behind an
+// animation — the typewriter used to hold them back for its first phrase.
+document.querySelector('.hero-roles').classList.add('revealed');
 
 function type() {
     const currentPhrase = phrases[phraseIndex];
@@ -97,10 +101,6 @@ function type() {
         isDeleting = true;
         typingSpeed = 1200;
         if (currentPhrase === 'Miko approved.') typewriter.classList.add('miko-clickable');
-        if (!pillsRevealed) {
-            pillsRevealed = true;
-            document.querySelector('.hero-roles').classList.add('revealed');
-        }
     } else if (isDeleting && charIndex === 0) {
         isDeleting = false;
         phraseIndex = (phraseIndex + 1) % phrases.length;
@@ -110,15 +110,46 @@ function type() {
     setTimeout(type, typingSpeed);
 }
 
-setTimeout(type, 0);
+// Reduced motion asks us to drop the animation, not the content. Swapping the
+// phrases on a timer would trade one WCAG 2.2.2 failure for another -- a text
+// swap every few seconds is still auto-updating information with no way to
+// stop it. So the tagline advances only when the visitor clicks it. Every
+// phrase stays reachable, including "Miko approved.", and the change is
+// user-initiated, which 2.2.2 does not cover.
+let staticIndex = 0;
+
+function showPhraseStatically(i) {
+    const phrase = phrases[i];
+    typewriter.textContent = phrase;
+    typewriter.classList.toggle('miko-clickable', phrase === 'Miko approved.');
+}
+
+if (reducedMotion.matches) {
+    showPhraseStatically(staticIndex);
+} else {
+    setTimeout(type, 0);
+}
 
 typewriter.addEventListener('click', () => {
     if (typewriter.classList.contains('miko-clickable')) triggerMikoAnnotation();
 });
 
+// Registered after the seal handler on purpose: a click on the "Miko approved."
+// line fires the seal first, then advances past it.
+if (reducedMotion.matches) {
+    typewriter.addEventListener('click', () => {
+        staticIndex = (staticIndex + 1) % phrases.length;
+        showPhraseStatically(staticIndex);
+    });
+}
+
 if (isPointerFine) {
     typewriter.addEventListener('mouseenter', () => {
-        if (typewriter.classList.contains('miko-clickable')) cursor.classList.add('hover');
+        // Under reduced motion the whole tagline is clickable (it advances the
+        // phrases), so it reads as interactive throughout.
+        if (reducedMotion.matches || typewriter.classList.contains('miko-clickable')) {
+            cursor.classList.add('hover');
+        }
     });
     typewriter.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
 }
@@ -181,7 +212,8 @@ const projectData = JSON.parse(document.getElementById('project-data').textConte
 
 const FOCUSABLE = 'a[href], button:not([disabled]), input, textarea, select, [tabindex]:not([tabindex="-1"])';
 // Everything behind the modal overlay; made inert while the dialog is open.
-const modalBackgroundEls = document.querySelectorAll('body > nav, body > section, body > footer');
+// Sections live inside <main>, so match the wrapper rather than the sections.
+const modalBackgroundEls = document.querySelectorAll('body > nav, body > main, body > footer');
 let modalTrigger = null;
 let modalPushedState = false;
 
@@ -226,7 +258,7 @@ function buildModalHTML(project) {
             </div>
         </div>
         <div class="modal-zone-challenge">
-            <h4>Challenge</h4>
+            <h3>Challenge</h3>
             <p>${project.challenge}</p>
         </div>
         <div class="modal-zone modal-zone-c">
@@ -241,7 +273,7 @@ function buildModalHTML(project) {
             const num = String(i + 1).padStart(2, '0');
             const zoneClass = i % 2 === 0 ? 'modal-zone-b' : 'modal-zone-c';
             const imgHTML = ex.image ? `<img src="${ex.image}" alt="${ex.imageAlt || ''}" class="example-img" loading="lazy" decoding="async">` : '';
-            const videoHTML = ex.video ? `<div class="video-exhibit"><video controls class="example-video"${ex.poster ? ` poster="${ex.poster}"` : ''}><source src="${ex.video}" type="video/mp4"></video></div>` : '';
+            const videoHTML = ex.video ? `<div class="video-exhibit"><video controls preload="none" class="example-video" aria-label="${ex.videoLabel || ex.label}"${ex.poster ? ` poster="${ex.poster}"` : ''}><source src="${ex.video}" type="video/mp4"></video></div>` : '';
             const statHTML = ex.stat ? `<p class="example-stat">${ex.stat}</p>` : '';
             const linkHTML = ex.link ? `<a href="${ex.link}" target="_blank" rel="noopener" class="example-link">${ex.linkLabel || '↗ View post'}</a>` : '';
             return `
@@ -354,10 +386,18 @@ modalEl.addEventListener('touchend', (e) => {
 }, { passive: true });
 
 // ===== SMOOTH SCROLL =====
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+// The skip link is deliberately excluded: it needs the browser's native anchor
+// behaviour, which moves focus to #main as well as scrolling to it.
+document.querySelectorAll('a[href^="#"]:not(.skip-link)').forEach(anchor => {
     anchor.addEventListener('click', (e) => {
         e.preventDefault();
-        const target = document.querySelector(anchor.getAttribute('href'));
+        const href = anchor.getAttribute('href');
+        // The logo's bare "#" is not a valid selector — treat it as "top".
+        if (href === '#') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            return;
+        }
+        const target = document.querySelector(href);
         if (target) {
             target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }

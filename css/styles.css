@@ -5,7 +5,7 @@
     --bg-secondary: #111111;
     --text-primary: #f5f5f5;
     --text-secondary: #888888;
-    --text-muted: #555555;
+    --text-muted: #808080;
     --accent: #c084fc;
     --accent-bright: #e879f9;
     --accent-dim: #9333ea;
@@ -72,6 +72,31 @@ img {
 button {
     font-family: inherit;
     cursor: pointer;
+}
+
+/* ===== SKIP LINK ===== */
+/* Offscreen until focused, then pinned over the nav. */
+.skip-link {
+    position: fixed;
+    top: 0;
+    left: var(--space-md);
+    z-index: 1001;
+    transform: translateY(-120%);
+    padding: var(--space-xs) var(--space-sm);
+    background: var(--accent);
+    color: var(--bg-primary);
+    font-weight: 600;
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+    transition: transform var(--transition-fast);
+}
+
+.skip-link:focus {
+    transform: translateY(0);
+    color: var(--bg-primary);
+}
+
+#main:focus {
+    outline: none;
 }
 
 /* ===== CUSTOM CURSOR ===== */
@@ -183,13 +208,17 @@ section {
     color: var(--text-secondary);
     transition: color var(--transition-base);
     position: relative;
+    /* Padding is the touch target, not decoration: the text is only 15px tall,
+       which is under the 24px WCAG 2.5.8 minimum on its own. */
+    display: inline-block;
+    padding: 0.5rem 0.25rem;
 }
 
 .nav-link::after {
     content: '';
     position: absolute;
-    bottom: -4px;
-    left: 0;
+    bottom: 0.25rem;
+    left: 0.25rem;
     width: 0;
     height: 2px;
     background: var(--accent);
@@ -203,7 +232,7 @@ section {
 
 .nav-link:hover::after,
 .nav-link.active::after {
-    width: 100%;
+    width: calc(100% - 0.5rem);
 }
 
 /* ===== HERO SECTION ===== */
@@ -800,7 +829,7 @@ html.js .hero-roles:not(.revealed) {
 /* ===== CARD STAT LINE ===== */
 .card-stat {
     font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 0.75rem;
     color: var(--text-muted);
     margin-bottom: var(--space-sm);
 }
@@ -827,7 +856,7 @@ html.js .hero-roles:not(.revealed) {
 
 .meta-role {
     font-family: var(--font-mono);
-    font-size: 0.68rem;
+    font-size: 0.75rem;
     color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 0.08em;
@@ -855,7 +884,7 @@ html.js .hero-roles:not(.revealed) {
 .stat-label {
     display: block;
     font-family: var(--font-mono);
-    font-size: 0.6rem;
+    font-size: 0.75rem;
     color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 0.08em;
@@ -880,7 +909,7 @@ html.js .hero-roles:not(.revealed) {
 
 .zone-label {
     font-family: var(--font-mono);
-    font-size: 0.65rem;
+    font-size: 0.75rem;
     color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 0.12em;
@@ -922,7 +951,7 @@ html.js .hero-roles:not(.revealed) {
     border-left: 3px solid var(--accent);
 }
 
-.modal-zone-challenge h4 {
+.modal-zone-challenge h3 {
     font-family: var(--font-mono);
     font-size: 0.68rem;
     color: var(--text-muted);
@@ -934,7 +963,7 @@ html.js .hero-roles:not(.revealed) {
     gap: 10px;
 }
 
-.modal-zone-challenge h4::before {
+.modal-zone-challenge h3::before {
     content: '';
     display: inline-block;
     width: 16px;
