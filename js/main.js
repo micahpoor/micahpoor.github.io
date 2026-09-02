@@ -208,7 +208,7 @@ function buildModalHTML(project) {
             </div>`).join('')}
         </div>` : '';
     return `
-        <img src="${project.heroImage}" alt="${project.title}" class="modal-hero">
+        <img src="${project.heroImage}" alt="" class="modal-hero">
         <div class="modal-zone-header">
             <h2 class="modal-title" id="modal-title">${project.title}</h2>
             <p class="modal-subtitle">${project.subtitle}</p>
