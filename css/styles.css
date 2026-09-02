@@ -1253,12 +1253,31 @@ html.js-reveal .scroll-reveal:not(.revealed) {
 }
 
 @media (max-width: 480px) {
-    .nav-links {
-        gap: var(--space-sm);
+    /* Five nav items will not sit beside the logo on one row: at 375px they
+       overflowed the viewport by 38px, and at 320px the deficit is worse. Give
+       the logo its own line and let the links spread across the full width, so
+       the spacing stays even at any width instead of being squeezed out. */
+    .nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 0.75rem var(--space-sm);
     }
 
+    .nav-logo {
+        flex-basis: 100%;
+        text-align: center;
+        margin-bottom: 0.15rem;
+    }
+
+    .nav-links {
+        width: 100%;
+        justify-content: space-between;
+        gap: 0;
+    }
+
+    /* 0.75rem is 12px exactly -- the floor set during the contrast pass. */
     .nav-link {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
     }
 
     .hero-roles {
