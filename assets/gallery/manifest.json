@@ -1,0 +1,152 @@
+[
+ {
+  "slug": "dsc02708",
+  "source": "DSC02708.jpg",
+  "orientation": "landscape",
+  "grid": {
+   "file": "assets/gallery/dsc02708.webp",
+   "w": 1100,
+   "h": 733
+  },
+  "full": {
+   "file": "assets/gallery/dsc02708-full.webp",
+   "w": 2200,
+   "h": 1467
+  }
+ },
+ {
+  "slug": "dsc03169",
+  "source": "DSC03169.jpg",
+  "orientation": "landscape",
+  "grid": {
+   "file": "assets/gallery/dsc03169.webp",
+   "w": 1100,
+   "h": 733
+  },
+  "full": {
+   "file": "assets/gallery/dsc03169-full.webp",
+   "w": 2200,
+   "h": 1467
+  }
+ },
+ {
+  "slug": "dsc03641",
+  "source": "DSC03641.jpg",
+  "orientation": "landscape",
+  "grid": {
+   "file": "assets/gallery/dsc03641.webp",
+   "w": 1100,
+   "h": 733
+  },
+  "full": {
+   "file": "assets/gallery/dsc03641-full.webp",
+   "w": 2200,
+   "h": 1467
+  }
+ },
+ {
+  "slug": "dsc04547-3",
+  "source": "DSC04547-3.jpg",
+  "orientation": "portrait",
+  "grid": {
+   "file": "assets/gallery/dsc04547-3.webp",
+   "w": 733,
+   "h": 1100
+  },
+  "full": {
+   "file": "assets/gallery/dsc04547-3-full.webp",
+   "w": 1467,
+   "h": 2200
+  }
+ },
+ {
+  "slug": "dsc04608",
+  "source": "DSC04608.jpg",
+  "orientation": "landscape",
+  "grid": {
+   "file": "assets/gallery/dsc04608.webp",
+   "w": 1100,
+   "h": 733
+  },
+  "full": {
+   "file": "assets/gallery/dsc04608-full.webp",
+   "w": 2200,
+   "h": 1467
+  }
+ },
+ {
+  "slug": "dsc04619",
+  "source": "DSC04619.jpg",
+  "orientation": "landscape",
+  "grid": {
+   "file": "assets/gallery/dsc04619.webp",
+   "w": 1100,
+   "h": 733
+  },
+  "full": {
+   "file": "assets/gallery/dsc04619-full.webp",
+   "w": 2200,
+   "h": 1467
+  }
+ },
+ {
+  "slug": "dsc04935",
+  "source": "DSC04935.jpg",
+  "orientation": "portrait",
+  "grid": {
+   "file": "assets/gallery/dsc04935.webp",
+   "w": 733,
+   "h": 1100
+  },
+  "full": {
+   "file": "assets/gallery/dsc04935-full.webp",
+   "w": 1467,
+   "h": 2200
+  }
+ },
+ {
+  "slug": "dsc04981",
+  "source": "DSC04981.jpg",
+  "orientation": "landscape",
+  "grid": {
+   "file": "assets/gallery/dsc04981.webp",
+   "w": 1100,
+   "h": 733
+  },
+  "full": {
+   "file": "assets/gallery/dsc04981-full.webp",
+   "w": 2200,
+   "h": 1467
+  }
+ },
+ {
+  "slug": "dsc05470",
+  "source": "DSC05470.jpg",
+  "orientation": "portrait",
+  "grid": {
+   "file": "assets/gallery/dsc05470.webp",
+   "w": 733,
+   "h": 1100
+  },
+  "full": {
+   "file": "assets/gallery/dsc05470-full.webp",
+   "w": 1467,
+   "h": 2200
+  }
+ },
+ {
+  "slug": "img-20241019-181022-2",
+  "source": "IMG_20241019_181022~2.png",
+  "orientation": "portrait",
+  "grid": {
+   "file": "assets/gallery/img-20241019-181022-2.webp",
+   "w": 825,
+   "h": 1100
+  },
+  "full": {
+   "file": "assets/gallery/img-20241019-181022-2-full.webp",
+   "w": 1650,
+   "h": 2200
+  }
+ }
+]

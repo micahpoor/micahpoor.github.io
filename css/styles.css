@@ -743,12 +743,18 @@ html.js .hero-roles:not(.revealed) {
     padding: var(--space-md);
     opacity: 0;
     visibility: hidden;
-    transition: all var(--transition-base);
+    /* visibility is stepped, not interpolated. Transitioning it leaves the
+       dialog computed as hidden at the moment focus is requested, and a hidden
+       element cannot take focus -- which is what focusModalWhenVisible() has
+       been retrying around. Flip it instantly on open; delay it on close so
+       the fade still plays out before the dialog becomes unreachable. */
+    transition: opacity var(--transition-base), visibility 0s var(--transition-base);
 }
 
 .modal-overlay.active {
     opacity: 1;
     visibility: visible;
+    transition: opacity var(--transition-base), visibility 0s;
 }
 
 .modal {

@@ -110,7 +110,9 @@ function render(i) {
     lightboxImg.src = item.dataset.full;
     lightboxImg.width = Number(item.dataset.fullW);
     lightboxImg.height = Number(item.dataset.fullH);
-    lightboxImg.alt = `Photo ${i + 1} of ${items.length}`;
+    // Carry the grid thumbnail's description across rather than a positional
+    // placeholder — the counter already announces position.
+    lightboxImg.alt = item.querySelector('img').alt;
     counter.textContent = `${i + 1} / ${items.length}`;
 }
 
