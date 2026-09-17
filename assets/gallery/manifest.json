@@ -1,5 +1,20 @@
 [
  {
+  "slug": "dsc02144",
+  "source": "DSC02144.jpg",
+  "orientation": "landscape",
+  "grid": {
+   "file": "assets/gallery/dsc02144.webp",
+   "w": 1100,
+   "h": 733
+  },
+  "full": {
+   "file": "assets/gallery/dsc02144-full.webp",
+   "w": 2200,
+   "h": 1467
+  }
+ },
+ {
   "slug": "dsc02708",
   "source": "DSC02708.jpg",
   "orientation": "landscape",
@@ -30,6 +45,21 @@
   }
  },
  {
+  "slug": "dsc03481",
+  "source": "DSC03481.jpg",
+  "orientation": "landscape",
+  "grid": {
+   "file": "assets/gallery/dsc03481.webp",
+   "w": 1100,
+   "h": 733
+  },
+  "full": {
+   "file": "assets/gallery/dsc03481-full.webp",
+   "w": 2200,
+   "h": 1467
+  }
+ },
+ {
   "slug": "dsc03641",
   "source": "DSC03641.jpg",
   "orientation": "landscape",
@@ -40,6 +70,21 @@
   },
   "full": {
    "file": "assets/gallery/dsc03641-full.webp",
+   "w": 2200,
+   "h": 1467
+  }
+ },
+ {
+  "slug": "dsc03768",
+  "source": "DSC03768.jpg",
+  "orientation": "landscape",
+  "grid": {
+   "file": "assets/gallery/dsc03768.webp",
+   "w": 1100,
+   "h": 733
+  },
+  "full": {
+   "file": "assets/gallery/dsc03768-full.webp",
    "w": 2200,
    "h": 1467
   }
@@ -135,6 +180,21 @@
   }
  },
  {
+  "slug": "img-20220203-103821",
+  "source": "IMG_20220203_103821.jpg",
+  "orientation": "landscape",
+  "grid": {
+   "file": "assets/gallery/img-20220203-103821.webp",
+   "w": 825,
+   "h": 1100
+  },
+  "full": {
+   "file": "assets/gallery/img-20220203-103821-full.webp",
+   "w": 1650,
+   "h": 2200
+  }
+ },
+ {
   "slug": "img-20241019-181022-2",
   "source": "IMG_20241019_181022~2.png",
   "orientation": "portrait",
@@ -146,6 +206,21 @@
   "full": {
    "file": "assets/gallery/img-20241019-181022-2-full.webp",
    "w": 1650,
+   "h": 2200
+  }
+ },
+ {
+  "slug": "snapchat-578891186",
+  "source": "Snapchat-578891186.jpg",
+  "orientation": "portrait",
+  "grid": {
+   "file": "assets/gallery/snapchat-578891186.webp",
+   "w": 733,
+   "h": 1100
+  },
+  "full": {
+   "file": "assets/gallery/snapchat-578891186-full.webp",
+   "w": 1467,
    "h": 2200
   }
  }
