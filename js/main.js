@@ -446,7 +446,7 @@ function triggerMikoAnnotation() {
     const stamp = document.createElement('div');
     stamp.id = 'miko-stamp';
     stamp.className = 'miko-stamp';
-    stamp.innerHTML = `<img src="assets/images/mikoSeal_v1.webp" alt="Miko Approved — official portfolio certification mark" draggable="false">`;
+    stamp.innerHTML = `<img src="assets/images/mikoSeal_v1.webp" alt="Miko Approved—official portfolio certification mark" draggable="false">`;
     stamp.addEventListener('click', () => {
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
             stamp.remove();
