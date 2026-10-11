@@ -1260,10 +1260,13 @@ html.js-reveal .scroll-reveal:not(.revealed) {
         padding-inline: var(--space-sm);
     }
 
+    /* fit-content sizes the grid to its pills, not to .hero-content, which
+       widens as the typewriter line grows and would drag the pills with it. */
     .hero-roles {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        max-width: 26rem;
+        width: fit-content;
+        max-width: 100%;
         margin-inline: auto;
     }
 
