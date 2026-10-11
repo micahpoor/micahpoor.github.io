@@ -67,7 +67,7 @@ magneticElements.forEach(el => {
 const phrases = [
     "Building communities worth showing up for",
     "Writing brand copy that doesn't sound like it",
-    "Picking the one post out of thousands",
+    "Putting good work in front of the right people",
     "Producing things that run without me",
     "Miko approved.",
 ];
