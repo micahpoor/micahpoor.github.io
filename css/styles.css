@@ -1251,6 +1251,28 @@ html.js-reveal .scroll-reveal:not(.revealed) {
     }
 }
 
+/* All four role pills need ~667px to share one row. Below that they wrapped
+   three-and-one, so up to 720px (row plus breathing room) they sit in a 2x2 grid. */
+@media (max-width: 720px) {
+    /* The hero has no side padding of its own, so on narrow screens its
+       content ran edge to edge. */
+    .hero {
+        padding-inline: var(--space-sm);
+    }
+
+    .hero-roles {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        max-width: 26rem;
+        margin-inline: auto;
+    }
+
+    .role-pill {
+        text-align: center;
+        white-space: nowrap;
+    }
+}
+
 @media (max-width: 480px) {
     /* Five nav items will not sit beside the logo on one row: at 375px they
        overflowed the viewport by 38px, and at 320px the deficit is worse. Give
@@ -1279,9 +1301,10 @@ html.js-reveal .scroll-reveal:not(.revealed) {
         font-size: 0.75rem;
     }
 
-    .hero-roles {
-        flex-direction: column;
-        align-items: center;
+    /* Slimmer pills so "Content Strategist" fits its half of the grid at 320px. */
+    .role-pill {
+        font-size: 0.72rem;
+        padding-inline: var(--space-xs);
     }
 
     .section-title {
