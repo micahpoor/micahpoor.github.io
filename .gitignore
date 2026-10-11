@@ -1,0 +1,60 @@
+# Working files that live alongside the site but are never published.
+#
+# Only source-only formats are ignored by pattern. Image, video and JPG/PNG
+# exports are listed one by one instead, because the site serves those same
+# types and a broad pattern would silently keep a new export out of a commit.
+
+# Local tooling
+.claude/
+
+# Design sources
+*.psd
+*.ai
+
+# Original photos (the gallery serves resized copies from assets/gallery/)
+assets/photos/
+
+# Retired or unused exports, kept locally for reference
+assets/images/back to school essentials.png
+assets/images/coach brandon.png
+assets/images/if you know you know.png
+assets/images/just waiting for vol. 2.png
+assets/images/mar10day.png
+assets/images/mar10day.webp
+assets/images/mikoSeal_v1.png
+assets/images/og-image.png
+assets/images/okay but....png
+assets/images/topPost.PNG
+assets/projects/008-bbp_PROMO-story_v2.mp4
+assets/projects/010-bbp_julia_STORY-v2.mp4
+assets/projects/011-bbp_sara_STORY-v1.mp4
+assets/projects/Capture.JPG
+assets/projects/DSC01397.jpg
+assets/projects/DSC01477.jpg
+assets/projects/DSC01487.jpg
+assets/projects/DSC01487.webp
+assets/projects/DSC01491.jpg
+assets/projects/Full Logo_cardThumb-v2.jpg
+assets/projects/bee-balm-hero.jpg
+assets/projects/bee-balm-thumb.jpg
+assets/projects/bee-balm-thumb.webp
+assets/projects/contStrat-vrd.png
+assets/projects/copyConceptsThumb.png
+assets/projects/copyConceptsThumb-v2.png
+assets/projects/copyConceptsThumb-v3.png
+assets/projects/copyConceptsThumb-v3.webp
+assets/projects/miko-1.jpg
+assets/projects/og-vrd.JPG
+assets/projects/store-social-hero-v2.png
+assets/projects/store-social-hero-v2.webp
+assets/projects/store-social-thumb.png
+assets/projects/store-social-thumb-v3.webp
+assets/projects/walmart-cardThumb.jpg
+assets/projects/writing-thumb.png
+
+# Store Social app screenshots and emoji references (not published)
+assets/projects/mls/IMG_*
+assets/projects/mls/Screenshot *
+assets/projects/mls/bouquet_1f490.png
+assets/projects/mls/bridgertonMLS.png
+assets/projects/mls/mushroom_1f344.png
