@@ -267,6 +267,7 @@ function buildModalHTML(project) {
             </div>
             <div class="zone-right">
                 <p>${project.solution}</p>
+                ${project.examplesNote ? `<p class="examples-note">${project.examplesNote}</p>` : ''}
             </div>
         </div>
         ${(project.examples || []).map((ex, i) => {
