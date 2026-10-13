@@ -488,8 +488,14 @@ window.addEventListener('scroll', () => {
         nav.style.background = 'rgba(10, 10, 10, 0.8)';
     }
 
-    lastScroll = currentScroll;
-});
+    // Hide on scroll down, show on scroll up. Only the mobile CSS acts on the
+    // class; the 6px dead zone keeps small jitters from flickering it.
+    const delta = currentScroll - lastScroll;
+    if (Math.abs(delta) > 6) {
+        nav.classList.toggle('nav-hidden', delta > 0 && currentScroll > 80);
+        lastScroll = currentScroll;
+    }
+}, { passive: true });
 
 // ===== NAV ACTIVE STATE =====
 const navLinks = document.querySelectorAll('.nav-link');

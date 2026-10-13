@@ -1389,31 +1389,34 @@ html.js-reveal .scroll-reveal:not(.revealed) {
 }
 
 @media (max-width: 480px) {
-    /* Five nav items will not sit beside the logo on one row: at 375px they
-       overflowed the viewport by 38px, and at 320px the deficit is worse. Give
-       the logo its own line and let the links spread across the full width, so
-       the spacing stays even at any width instead of being squeezed out. */
+    /* One compact row: a smaller logo and tight link padding leave room for
+       all five links beside it. */
     .nav {
-        flex-wrap: wrap;
-        justify-content: center;
-        padding: 0.75rem var(--space-sm);
+        padding: 0.4rem var(--space-sm);
+        gap: 0.5rem;
+        transition: transform var(--transition-base), background var(--transition-base);
+    }
+
+    /* Slid away while scrolling down (main.js / gallery.js toggle the class),
+       but never while a keyboard user is inside it. */
+    .nav.nav-hidden:not(:focus-within) {
+        transform: translateY(-100%);
     }
 
     .nav-logo {
-        flex-basis: 100%;
-        text-align: center;
-        margin-bottom: 0.15rem;
+        font-size: 1.15rem;
     }
 
     .nav-links {
-        width: 100%;
-        justify-content: space-between;
-        gap: 0;
+        flex: 1;
+        justify-content: flex-end;
+        gap: 0.35rem;
     }
 
     /* 0.75rem is 12px exactly -- the floor set during the contrast pass. */
     .nav-link {
         font-size: 0.75rem;
+        padding-inline: 0.2rem;
     }
 
     /* Slimmer pills so "Content Strategist" fits its half of the grid at 320px. */

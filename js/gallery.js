@@ -77,11 +77,20 @@ if ('IntersectionObserver' in window) {
 
 // ===== NAV SCROLL EFFECT =====
 const nav = document.querySelector('.nav');
+let lastScroll = 0;
 window.addEventListener('scroll', () => {
-    nav.style.background = window.pageYOffset > 100
+    const currentScroll = window.pageYOffset;
+    nav.style.background = currentScroll > 100
         ? 'rgba(10, 10, 10, 0.95)'
         : 'rgba(10, 10, 10, 0.8)';
-});
+
+    // Hide on scroll down, show on scroll up (mobile CSS only).
+    const delta = currentScroll - lastScroll;
+    if (Math.abs(delta) > 6) {
+        nav.classList.toggle('nav-hidden', delta > 0 && currentScroll > 80);
+        lastScroll = currentScroll;
+    }
+}, { passive: true });
 
 // ===== LIGHTBOX =====
 const FOCUSABLE = 'a[href], button:not([disabled]), input, textarea, select, [tabindex]:not([tabindex="-1"])';
