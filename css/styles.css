@@ -1430,6 +1430,13 @@ html.js-reveal .scroll-reveal:not(.revealed) {
         align-items: flex-start;
         gap: var(--space-xs);
     }
+
+    /* A one-glyph marker (the gallery's sparkle) reads better beside a short
+       title than stacked over it. */
+    .section-title--inline {
+        flex-direction: row;
+        align-items: center;
+    }
 }
 
 /* ===== GALLERY PAGE ===== */
