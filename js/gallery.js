@@ -66,11 +66,14 @@ document.querySelectorAll('.magnetic').forEach(el => {
 if ('IntersectionObserver' in window) {
     document.documentElement.classList.add('js-reveal');
 
+    // Threshold 0, not a ratio: the single-column grid is ~4800px tall on a
+    // phone, so 10% of it never fit on the first screen and the photos stayed
+    // hidden until the user scrolled.
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) entry.target.classList.add('revealed');
         });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    }, { threshold: 0, rootMargin: '0px 0px -50px 0px' });
 
     document.querySelectorAll('.scroll-reveal').forEach(el => revealObserver.observe(el));
 }
