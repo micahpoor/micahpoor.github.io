@@ -21,7 +21,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css?v=20261011b">
+    <link rel="stylesheet" href="css/styles.css?v=20261013d">
 </head>
 <body>
     <a href="#main" class="skip-link">Skip to content</a>
@@ -159,6 +159,15 @@
                 <span>Built by me, approved by <span class="miko-trigger">Miko</span></span>
             </p>
         </div>
+        <!-- Lives in the footer so it goes inert with the rest of the page while a
+             modal or the lightbox is open. Fixed positioning pulls it out. -->
+        <button class="back-to-top" type="button" aria-label="Back to top" hidden>
+            <span class="back-to-top-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M12 19V5M5 12l7-7 7 7"/>
+                </svg>
+            </span>
+        </button>
     </footer>
 
     <!-- Lightbox -->
@@ -185,5 +194,6 @@
     </div>
 
     <script src="js/gallery.js?v=20261011" defer></script>
+    <script src="js/back-to-top.js?v=20261013c" defer></script>
 </body>
 </html>

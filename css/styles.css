@@ -730,6 +730,109 @@ html.js .hero-roles:not(.revealed) {
     color: var(--accent);
 }
 
+/* ===== BACK TO TOP ===== */
+/* The hero CTA in circle form: same 2px accent outline, same flat accent fill,
+   lift and glow on hover. The fill is opaque rather than the CTA's transparent
+   one so it holds up over gallery photos. No backdrop blur: the button moves
+   with the cursor, and a blur behind a moving element is re-rendered every
+   frame, which made the pull stutter. */
+.back-to-top {
+    position: fixed;
+    right: var(--space-md);
+    bottom: var(--space-md);
+    z-index: 90; /* under the nav (100) and far under the modal/lightbox (1000) */
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    background: var(--bg-primary);
+    border: 2px solid var(--accent);
+    border-radius: var(--radius-full);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px);
+    /* Same stepped-visibility trick as the modal: hide it from focus and
+       clicks only after the fade-out has finished. */
+    transition: opacity var(--transition-base), transform var(--transition-base),
+                background var(--transition-base), color var(--transition-base),
+                box-shadow var(--transition-base),
+                visibility 0s var(--transition-base);
+}
+
+/* display:flex above would otherwise beat the UA style for [hidden]. */
+.back-to-top[hidden] {
+    display: none;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition: opacity var(--transition-base), transform var(--transition-base),
+                background var(--transition-base), color var(--transition-base),
+                box-shadow var(--transition-base),
+                visibility 0s;
+}
+
+.back-to-top.visible:hover,
+.back-to-top.visible:focus-visible {
+    background: var(--accent);
+    color: var(--bg-primary);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(192, 132, 252, 0.3);
+}
+
+.back-to-top:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+/* The icon box clips the arrow so it can leave through the top and come
+   back in from the bottom. */
+.back-to-top-icon {
+    display: block;
+    width: 20px;
+    height: 20px;
+    overflow: hidden;
+}
+
+.back-to-top-icon svg {
+    display: block;
+}
+
+.back-to-top.visible:hover .back-to-top-icon svg,
+.back-to-top.visible:focus-visible .back-to-top-icon svg {
+    animation: btt-arrow 650ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+@keyframes btt-arrow {
+    0%     { transform: translateY(0); }
+    50%    { transform: translateY(-110%); }
+    50.01% { transform: translateY(110%); }
+    100%   { transform: translateY(0); }
+}
+
+@media (max-width: 480px) {
+    .back-to-top {
+        right: var(--space-sm);
+        bottom: var(--space-sm);
+        width: 44px;
+        height: 44px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .back-to-top,
+    .back-to-top.visible { transition: none; }
+    .back-to-top,
+    .back-to-top.visible:hover,
+    .back-to-top.visible:focus-visible { transform: none; }
+    .back-to-top.visible:hover .back-to-top-icon svg,
+    .back-to-top.visible:focus-visible .back-to-top-icon svg { animation: none; }
+}
+
 /* ===== MODAL ===== */
 .modal-overlay {
     position: fixed;
